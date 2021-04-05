@@ -1,8 +1,13 @@
 import React from 'react'
 import {Segment, Item, Icon, List, Button} from 'semantic-ui-react'
 import EventListAttendee from './EventListAttendee'
+import {Link} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {deleteEvent} from '../../../store/actions/eventActions'
 
-const EventListItem = ({event, handleSelectEvent, deleteEvent}) => {
+const EventListItem = ({event}) => {
+  const dispatch = useDispatch()
+
   return (
     <Segment.Group>
       <Segment>
@@ -20,21 +25,31 @@ const EventListItem = ({event, handleSelectEvent, deleteEvent}) => {
       </Segment>
       <Segment>
         <span>
-          <Icon name='clock' /> {event.date}
-          <Icon name='marker' /> {event.venue}
+          <Icon name='clock'/> {event.date}
+          <Icon name='marker'/> {event.venue}
         </span>
       </Segment>
       <Segment secondary>
         <List horizontal>
           {event.attendees.map(attendee => (
-          <EventListAttendee key={attendee.id} attendee={attendee}/>
+            <EventListAttendee key={attendee.id} attendee={attendee}/>
           ))}
         </List>
       </Segment>
       <Segment clearing>
         <div>{event.description}</div>
-        <Button color='red' floated={'right'} content={'Delete'} onClick={() => deleteEvent(event.id)}/>
-        <Button color='teal' floated={'right'} content={'View'} onClick={() => handleSelectEvent(event)}/>
+        <Button
+          color='red'
+          floated={'right'}
+          content={'Delete'}
+          onClick={() => dispatch(deleteEvent(event.id))}
+        />
+        <Button
+          color='teal'
+          floated={'right'}
+          content={'View'}
+          as={Link} to={`/events/${event.id}`}
+        />
       </Segment>
     </Segment.Group>
   )

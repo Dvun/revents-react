@@ -1,9 +1,13 @@
 import React, {useState} from 'react'
 import {Button, Form, Header, Segment} from 'semantic-ui-react'
-import FormLayout from '../nav/FormLayout'
+import FormLayout from './FormLayout'
 import cuid from 'cuid'
+import {useDispatch, useSelector} from 'react-redux'
+import {createEvent, updateEvent} from '../../../store/actions/eventActions'
 
-const EventForm = ({setFormOpen, handleCreateEvent, selectedEvent, updateEvent}) => {
+const EventForm = ({match, history}) => {
+  const dispatch = useDispatch()
+  const selectedEvent = useSelector(({eventReducers}) => eventReducers.events.find(e => e.id === match.params.id))
   const [values, setValues] = useState(selectedEvent ?? {
     title: '',
     category: '',
@@ -24,16 +28,16 @@ const EventForm = ({setFormOpen, handleCreateEvent, selectedEvent, updateEvent})
 
   const handleFormSubmit = () => {
     selectedEvent ?
-      updateEvent({...selectedEvent, ...values})
+      dispatch(updateEvent({...selectedEvent, ...values}))
       :
-      handleCreateEvent({
+      dispatch(createEvent({
         ...values,
         id: cuid(),
         hostedBy: 'Roman',
         attendees: [],
         hostPhotoURL: '/assets/user.png',
-      })
-    setFormOpen(false)
+      }))
+    history.push('/events')
   }
 
   const handleInputChange = (e) => {
@@ -56,7 +60,7 @@ const EventForm = ({setFormOpen, handleCreateEvent, selectedEvent, updateEvent})
           />
         ))}
         <Button type={'submit'} floated={'right'} positive content={'Submit'}/>
-        <Button type={'submit'} floated={'right'} content={'Cancel'} onClick={() => setFormOpen(false)}/>
+        <Button floated={'right'} content={'Cancel'}/>
       </Form>
     </Segment>
   )

@@ -1,42 +1,19 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Grid} from 'semantic-ui-react'
 import EventList from './EventList'
-import EventForm from '../eventForm/EventForm'
-import {sampleData} from '../../../app/api/sampleData'
+import {useSelector} from 'react-redux'
 
-const EventDashboard = ({formOpen, setFormOpen, handleSelectEvent, selectedEvent}) => {
-  const [events, setEvents] = useState(sampleData)
-
-  const handleCreateEvent = (event) => {
-    setEvents([...events, event])
-  }
-
-  const handleUpdateEvent = (updatedEvent) => {
-    setEvents(events.map(event => event.id === updatedEvent.id ? updatedEvent : event))
-    handleSelectEvent(null)
-  }
-
-  const deleteEvent = (eventId) => {
-    setEvents(events.filter(event => event.id !== eventId))
-  }
+const EventDashboard = () => {
+  const {events} = useSelector(({eventReducers}) => eventReducers)
 
   return (
     <div>
       <Grid>
         <Grid.Column width={10}>
-          <EventList events={events} handleSelectEvent={handleSelectEvent} deleteEvent={deleteEvent}/>
+          <EventList events={events}/>
         </Grid.Column>
         <Grid.Column width={6}>
-          {
-            formOpen &&
-            <EventForm
-              setFormOpen={setFormOpen}
-              handleCreateEvent={handleCreateEvent}
-              selectedEvent={selectedEvent}
-              key={selectedEvent ? selectedEvent.id : null}
-              updateEvent={handleUpdateEvent}
-            />
-          }
+          <h2>Event Filter</h2>
         </Grid.Column>
       </Grid>
     </div>
