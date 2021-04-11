@@ -8,12 +8,14 @@ import {Route, Switch} from 'react-router-dom'
 import EventDetailedPage from '../../features/events/eventDetailed/EventDetailedPage'
 import EventForm from '../../features/events/eventForm/EventForm'
 import {useLocation} from 'react-router'
+import ModalManager from '../common/modals/ModalManager'
 
 export default function App() {
   const {key} = useLocation()
 
   return (
     <>
+      <ModalManager />
       <Route exact path='/' component={HomePage}/>
       <Route path={'/(.+)'} render={() => (
         <>

@@ -8,33 +8,34 @@ import {Formik, Form} from 'formik'
 import {schema} from '../../../validation/FormValidation'
 import MySelectInput from './MySelectInput'
 import {categoryData} from '../../../app/api/categoryOptions'
+import MyDateInput from './MyDateInput'
 
 
 const EventForm = ({match, history}) => {
   const dispatch = useDispatch()
   const selectedEvent = useSelector(({eventReducers}) => eventReducers.events.find(e => e.id === match.params.id))
   const initialValue = selectedEvent ?? {
-      title: '',
-      category: '',
-      description: '',
-      city: '',
-      venue: '',
-      date: '',
-    }
+    title: '',
+    category: '',
+    description: '',
+    city: '',
+    venue: '',
+    date: '',
+  }
 
-    const handleSubmit = (values) => {
-      selectedEvent ?
-        dispatch(updateEvent({...selectedEvent, ...values}))
-        :
-        dispatch(createEvent({
-          ...values,
-          id: cuid(),
-          hostedBy: 'Roman',
-          attendees: [],
-          hostPhotoURL: '/assets/user.png',
-        }))
-      history.push('/events')
-    }
+  const handleSubmit = (values) => {
+    selectedEvent ?
+      dispatch(updateEvent({...selectedEvent, ...values}))
+      :
+      dispatch(createEvent({
+        ...values,
+        id: cuid(),
+        hostedBy: 'Roman',
+        attendees: [],
+        hostPhotoURL: '/assets/user.png',
+      }))
+    history.push('/events')
+  }
 
   return (
     <Segment clearing>
@@ -43,18 +44,40 @@ const EventForm = ({match, history}) => {
         validationSchema={schema}
         onSubmit={values => handleSubmit(values)}
       >
-        <Form className="ui form">
-          <Header sub color="teal" content="Event Details"/>
-          <FormLayout placeholder="Event title" name='title'/>
-          <MySelectInput name='category' options={categoryData} placeholder="Category"/>
-          <FormLayout placeholder="Description" name='description'/>
-          <Header sub color="teal" content="Event Location Details"/>
-          <FormLayout placeholder="City" name='city'/>
-          <FormLayout placeholder="Venue" name='venue'/>
-          <FormLayout placeholder="Date" name='date' type='date'/>
-          <Button type="submit" floated={'right'} positive content={'Submit'}/>
-          <Button type="button" floated={'right'} content={'Cancel'}/>
-        </Form>
+        {({isSubmitting, dirty, isValid}) => (
+          <Form className="ui form">
+            <Header sub color="teal" content="Event Details"/>
+            <FormLayout placeholder="Event title" name="title"/>
+            <MySelectInput name="category" options={categoryData} placeholder="Category"/>
+            <FormLayout placeholder="Description" name="description"/>
+            <Header sub color="teal" content="Event Location Details"/>
+            <FormLayout placeholder="City" name="city"/>
+            <FormLayout placeholder="Venue" name="venue"/>
+            <MyDateInput
+              placeholderText="Date"
+              name="date"
+              timeFormat="HH:mm"
+              showTimeSelect
+              timeCaption="time"
+              dateFormat="MMMM d, yyyy h:mm a"
+            />
+            <Button
+              loading={isSubmitting}
+              disabled={!isValid || !dirty || isSubmitting}
+              type="submit"
+              floated={'right'}
+              positive
+              content={'Submit'}
+            />
+            <Button
+              disabled={isSubmitting}
+              type="button"
+              floated={'right'}
+              content={'Cancel'}
+              onClick={() => history.push('/events')}
+            />
+          </Form>
+        )}
       </Formik>
     </Segment>
   )

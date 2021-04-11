@@ -8,3 +8,8 @@ export const schema = yup.object().shape({
   venue: yup.string().required('Venue is required!'),
   date: yup.string().required('Date is required!'),
 })
+
+export const loginSchema = yup.object().shape({
+  email: yup.string().required('Email is required!').email(),
+  password: yup.string().required('Password is required!')
+})

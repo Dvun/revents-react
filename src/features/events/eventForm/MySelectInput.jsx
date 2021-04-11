@@ -9,7 +9,7 @@ const MySelectInput = ({...props}) => {
     <FormField error={!!props.errors}>
       <Select
         clearable
-        values={field.value || null}
+        value={field.value || null}
         onChange={(e, d) => helpers.setValue(d.value)}
         onBlur={() => helpers.setTouched(true)}
         {...props}/>
