@@ -1,13 +1,20 @@
 import React from 'react'
-import {Form} from 'semantic-ui-react'
+import {FormField} from 'semantic-ui-react'
+import {useField, ErrorMessage} from 'formik'
 
-const FormLayout = ({type, placeholder, value, onChange, name}) => {
-
+const FormLayout = ({...props}) => {
+  const [field, meta] = useField(props)
 
   return (
-    <Form.Field>
-      <input type={type} name={name} placeholder={placeholder} value={value} onChange={onChange}/>
-    </Form.Field>
+    <FormField error={!!meta.error}>
+      {
+        field.name === 'description' ?
+          <textarea {...field} {...props} rows={3}/>
+          :
+          <input {...field} {...props} />
+      }
+      <ErrorMessage name={field.name} render={() => <div style={{color: 'red'}}>{meta.error}</div>}/>
+    </FormField>
   )
 }
 
