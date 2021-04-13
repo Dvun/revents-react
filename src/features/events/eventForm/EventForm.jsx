@@ -1,3 +1,4 @@
+/*global google*/
 import React from 'react'
 import {Button, Header, Segment} from 'semantic-ui-react'
 import cuid from 'cuid'
@@ -9,6 +10,7 @@ import {schema} from '../../../validation/FormValidation'
 import MySelectInput from './MySelectInput'
 import {categoryData} from '../../../app/api/categoryOptions'
 import MyDateInput from './MyDateInput'
+import MyPlaceInput from './MyPlaceInput'
 
 
 const EventForm = ({match, history}) => {
@@ -18,8 +20,14 @@ const EventForm = ({match, history}) => {
     title: '',
     category: '',
     description: '',
-    city: '',
-    venue: '',
+    city: {
+      address: '',
+      latLng: null
+    },
+    venue: {
+      address: '',
+      latLng: null
+    },
     date: '',
   }
 
@@ -44,15 +52,24 @@ const EventForm = ({match, history}) => {
         validationSchema={schema}
         onSubmit={values => handleSubmit(values)}
       >
-        {({isSubmitting, dirty, isValid}) => (
+        {({isSubmitting, dirty, isValid, values}) => (
           <Form className="ui form">
             <Header sub color="teal" content="Event Details"/>
             <FormLayout placeholder="Event title" name="title"/>
             <MySelectInput name="category" options={categoryData} placeholder="Category"/>
             <FormLayout placeholder="Description" name="description"/>
             <Header sub color="teal" content="Event Location Details"/>
-            <FormLayout placeholder="City" name="city"/>
-            <FormLayout placeholder="Venue" name="venue"/>
+            <MyPlaceInput placeholder="City" name="city"/>
+            <MyPlaceInput
+              placeholder="Venue"
+              name="venue"
+              disabled={!values.city.latLng}
+              options={{
+                location: new google.maps.LatLng(values.city.latLng),
+                radius: 100,
+                types: ['establishment']
+              }}
+            />
             <MyDateInput
               placeholderText="Date"
               name="date"
@@ -61,6 +78,7 @@ const EventForm = ({match, history}) => {
               timeCaption="time"
               dateFormat="MMMM d, yyyy h:mm a"
             />
+
             <Button
               loading={isSubmitting}
               disabled={!isValid || !dirty || isSubmitting}
