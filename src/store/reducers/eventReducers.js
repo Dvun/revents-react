@@ -1,12 +1,18 @@
 import * as consts from '../constants/eventConstats'
-import {sampleData} from '../../app/api/sampleData'
+import {FETCH_EVENTS} from '../constants/eventConstats'
 
 const initialState = {
-  events: sampleData,
+  events: [],
 }
 
 export const eventReducers = (state = initialState, {type, payload}) => {
   switch (type) {
+
+    case FETCH_EVENTS:
+      return {
+        ...state,
+        events: payload
+      }
 
     case consts.CREATE_EVENT:
       return {

@@ -1,5 +1,18 @@
 import * as consts from '../constants/eventConstats'
+import {asyncActionError, asyncActionFinnish, asyncActionStart} from '../reducers/asyncReducers'
+import {fetchSampleData} from '../../app/api/mockApi'
+import {FETCH_EVENTS} from '../constants/eventConstats'
 
+export const loadEvents = () => async (dispatch) => {
+  dispatch(asyncActionStart())
+  try {
+    const events = await fetchSampleData()
+    dispatch({type: FETCH_EVENTS, payload: events})
+    dispatch(asyncActionFinnish())
+  } catch (err) {
+    dispatch(asyncActionError(err))
+  }
+}
 
 export const createEvent = (event) => (dispatch) => {
   dispatch({type: consts.CREATE_EVENT, payload: event})

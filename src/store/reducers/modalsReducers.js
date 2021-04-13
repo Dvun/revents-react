@@ -14,7 +14,6 @@ const initialState = null
 export const modalsReducers = (state = initialState, {type, payload}) => {
   switch (type) {
     case OPEN_MODAL:
-      console.log(payload)
       const {modalType, modalProps} = payload
       return {modalType, modalProps}
 
