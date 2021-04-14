@@ -17,3 +17,14 @@ export const loginSchema = yup.object().shape({
   email: yup.string().required('Email is required!').email(),
   password: yup.string().required('Password is required!')
 })
+
+export const registerSchema = yup.object().shape({
+  displayName: yup.string().required('Name is required!'),
+  email: yup.string().required('Email is required!').email(),
+  password: yup.string().required('Password is required!')
+})
+
+export const passwordSchema = yup.object().shape({
+  newPassword1: yup.string().required('Password is required!'),
+  newPassword2: yup.string().oneOf([yup.ref('newPassword1'), null], 'Password do not match!')
+})

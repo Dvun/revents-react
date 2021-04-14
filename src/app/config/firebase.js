@@ -3,16 +3,16 @@ import 'firebase/firestore'
 import 'firebase/database'
 import 'firebase/auth'
 import 'firebase/storage'
-
+import {config} from '../../config'
 
 const firebaseConfig = {
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  databaseURL: process.env.databaseURL,
-  projectId: 'revents-page',
-  storageBucket: process.env.storageBucket,
-  messagingSenderId: process.env.messagingSenderId,
-  appId: process.env.appId,
+  apiKey: config.GOOGLE_API_KEY,
+  authDomain: config.AUTH_DOMAIN,
+  databaseURL: config.DATABASE_URL,
+  projectId: config.PROJECT_ID,
+  storageBucket: config.STORAGE_BUCKET,
+  messagingSenderId: config.MESSAGING_SENDER_ID,
+  appId: config.APP_ID,
 }
 
 firebase.initializeApp(firebaseConfig)

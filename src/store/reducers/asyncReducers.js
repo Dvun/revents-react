@@ -1,6 +1,7 @@
 const ASYNC_ACTION_START = 'ASYNC_ACTION_START'
 const ASYNC_ACTION_FINNISH = 'ASYNC_ACTION_FINNISH'
 const ASYNC_ACTION_ERROR = 'ASYNC_ACTION_ERROR'
+export const APP_LOADED = 'APP_LOADED'
 
 export function asyncActionStart() {
   return ({type: ASYNC_ACTION_START})
@@ -17,6 +18,7 @@ export function asyncActionError(error) {
 const initialState = {
   loading: false,
   error: null,
+  initialized: false
 }
 
 export const asyncReducers = (state = initialState, {type, payload}) => {
@@ -40,6 +42,12 @@ export const asyncReducers = (state = initialState, {type, payload}) => {
         ...state,
         loading: false,
         error: payload,
+      }
+
+    case APP_LOADED:
+      return {
+        ...state,
+        initialized: true
       }
 
     default:
