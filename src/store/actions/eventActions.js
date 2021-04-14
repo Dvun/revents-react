@@ -14,6 +14,10 @@ export const loadEvents = () => async (dispatch) => {
   }
 }
 
+export const listenToEvents = (events) => (dispatch) => {
+  dispatch({type: FETCH_EVENTS, payload: events})
+}
+
 export const createEvent = (event) => (dispatch) => {
   dispatch({type: consts.CREATE_EVENT, payload: event})
 }

@@ -1,33 +1,37 @@
 import React from 'react'
-import {Segment, Item, Icon, List, Button} from 'semantic-ui-react'
+import {Segment, Item, Icon, List, Button, Label} from 'semantic-ui-react'
 import EventListAttendee from './EventListAttendee'
 import {Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import {deleteEvent} from '../../../store/actions/eventActions'
 import {format} from 'date-fns'
+import {deleteEventInFirestore} from '../../../app/firestore/firestoreService'
 
 const EventListItem = ({event}) => {
-  const dispatch = useDispatch()
 
   return (
     <Segment.Group>
       <Segment>
         <Item.Group>
           <Item>
-            <Item.Image size='tiny' circular src={event.hostPhotoURL}/>
+            <Item.Image size="tiny" circular src={event.hostPhotoURL}/>
             <Item.Content>
               <Item.Header content={event.title}/>
-              <Item.Description>
-                Hosted By {event.hostedBy}
-              </Item.Description>
+              <Item.Description>Hosted By {event.hostedBy}</Item.Description>
+              {event.isCancelled && (
+                <Label
+                  ribbon="right"
+                  color="red"
+                  content="This event has been cancelled"
+                  style={{top: '-40px'}}
+                />
+              )}
             </Item.Content>
           </Item>
         </Item.Group>
       </Segment>
       <Segment>
         <span>
-          <Icon name='clock'/> {format(event.date, 'MMMM d, yyyy h:mm a')}
-          <Icon name='marker'/> {event.venue.address}
+          <Icon name="clock"/> {format(event.date, 'MMMM d, yyyy h:mm a')}
+          <Icon name="marker"/> {event.venue.address}
         </span>
       </Segment>
       <Segment secondary>
@@ -40,13 +44,13 @@ const EventListItem = ({event}) => {
       <Segment clearing>
         <div>{event.description}</div>
         <Button
-          color='red'
+          color="red"
           floated={'right'}
           content={'Delete'}
-          onClick={() => dispatch(deleteEvent(event.id))}
+          onClick={() => deleteEventInFirestore(event.id)}
         />
         <Button
-          color='teal'
+          color="teal"
           floated={'right'}
           content={'View'}
           as={Link} to={`/events/${event.id}`}

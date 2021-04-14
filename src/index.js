@@ -1,6 +1,6 @@
 import React from 'react'
 import 'semantic-ui-css/semantic.min.css'
-import 'react-toastify/dist/ReactToastify.min.css';
+import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-calendar/dist/Calendar.css'
 import ReactDOM from 'react-dom'
 import App from './app/layout/App'
@@ -9,11 +9,9 @@ import reportWebVitals from './reportWebVitals'
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {store} from './store/configureStore'
-import {loadEvents} from './store/actions/eventActions'
 
 const rootEl = document.getElementById('root')
 
-store.dispatch(loadEvents())
 
 function render() {
   ReactDOM.render(
