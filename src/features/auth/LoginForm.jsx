@@ -6,7 +6,7 @@ import FormLayout from '../events/eventForm/FormLayout'
 import {Button, Divider, Label} from 'semantic-ui-react'
 import {useDispatch} from 'react-redux'
 import {closeModal} from '../../store/reducers/modalsReducers'
-import {sigInWithEmail} from '../../app/firestore/firebaseAuthService'
+import {sigInWithEmail} from '../../app/firestore/firebaseService'
 import SocialLogin from './SocialLogin'
 
 const LoginForm = () => {

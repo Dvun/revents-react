@@ -2,7 +2,7 @@ import React from 'react'
 import {Button} from 'semantic-ui-react'
 import {useDispatch} from 'react-redux'
 import {closeModal} from '../../store/reducers/modalsReducers'
-import {socialLogin} from '../../app/firestore/firebaseAuthService'
+import {socialLogin} from '../../app/firestore/firebaseService'
 
 const SocialLogin = () => {
   const dispatch = useDispatch()

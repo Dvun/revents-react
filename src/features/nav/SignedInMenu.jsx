@@ -3,7 +3,7 @@ import {Dropdown, DropdownItem, DropdownMenu, Image, Menu} from 'semantic-ui-rea
 import {Link, useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {toast} from 'react-toastify'
-import {signOutFirebase} from '../../app/firestore/firebaseAuthService'
+import {signOutFirebase} from '../../app/firestore/firebaseService'
 
 const SignedInMenu = () => {
   const history = useHistory()

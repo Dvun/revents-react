@@ -43,3 +43,18 @@ export async function socialLogin(selectedProvider) {
     toast.error(e.message)
   }
 }
+
+// Upload images to Firebase storage
+export function uploadToFirebaseStorage(file, filename) {
+  const user = firebase.auth().currentUser
+  const storageRef = firebase.storage().ref()
+  return storageRef.child(`${user.uid}/user_images/${filename}`).put(file)
+}
+
+// Delete image from Firebase storage
+export function deleteFromFirebaseStorage(filename) {
+  const userUid = firebase.auth().currentUser.uid
+  const storageRef = firebase.storage().ref()
+  const photoRef = storageRef.child(`${userUid}/user_images/${filename}`)
+  return photoRef.delete()
+}

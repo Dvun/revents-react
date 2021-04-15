@@ -6,7 +6,7 @@ import FormLayout from '../events/eventForm/FormLayout'
 import {Button, Divider, Label} from 'semantic-ui-react'
 import {useDispatch} from 'react-redux'
 import {closeModal} from '../../store/reducers/modalsReducers'
-import {registerInFirebase} from '../../app/firestore/firebaseAuthService'
+import {registerInFirebase} from '../../app/firestore/firebaseService'
 import SocialLogin from './SocialLogin'
 
 export const RegisterForm = () => {
