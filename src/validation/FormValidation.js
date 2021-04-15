@@ -28,3 +28,7 @@ export const passwordSchema = yup.object().shape({
   newPassword1: yup.string().required('Password is required!'),
   newPassword2: yup.string().oneOf([yup.ref('newPassword1'), null], 'Password do not match!')
 })
+
+export const userUpdateSchema = yup.object().shape({
+  displayName: yup.string().required('Display name required')
+})

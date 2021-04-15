@@ -19,6 +19,7 @@ import {
 import LoadingComponent from '../../../app/layout/LoadingComponent'
 import {Redirect} from 'react-router'
 import {toast} from 'react-toastify'
+import TextAreaLayout from './TextAreaLayout'
 
 
 const EventForm = ({match, history}) => {
@@ -90,7 +91,7 @@ const EventForm = ({match, history}) => {
             <Header sub color="teal" content="Event Details"/>
             <FormLayout placeholder="Event title" name="title"/>
             <MySelectInput name="category" options={categoryData} placeholder="Category"/>
-            <FormLayout placeholder="Description" name="description"/>
+            <TextAreaLayout placeholder="Description" name="description" rows={3}/>
             <Header sub color="teal" content="Event Location Details"/>
             <MyPlaceInput placeholder="City" name="city"/>
             <MyPlaceInput

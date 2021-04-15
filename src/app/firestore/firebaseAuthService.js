@@ -2,14 +2,17 @@ import firebase from '../../app/config/firebase'
 import {setUserProfileData} from './firestoreService'
 import {toast} from 'react-toastify'
 
+// Login wit email
 export function sigInWithEmail(creds) {
   return firebase.auth().signInWithEmailAndPassword(creds.email, creds.password)
 }
 
+// Logout
 export function signOutFirebase() {
   return firebase.auth().signOut()
 }
 
+// Register New User
 export async function registerInFirebase(creds) {
   try {
     const res = await firebase.auth().createUserWithEmailAndPassword(creds.email, creds.password)
@@ -22,6 +25,7 @@ export async function registerInFirebase(creds) {
   }
 }
 
+// Register or Login User with Social Buttons
 export async function socialLogin(selectedProvider) {
   let provider
   if (selectedProvider === 'facebook') {

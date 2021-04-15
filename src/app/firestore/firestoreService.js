@@ -21,6 +21,7 @@ export function dataFromSnapshot(snapshot) {
   }
 }
 
+// Events routes
 export function listenToEventsFromFirestore() {
   return db.collection('events').orderBy('date')
 }
@@ -37,8 +38,8 @@ export function addEventToFirestore(event) {
     attendees: firebase.firestore.FieldValue.arrayUnion({
       id: cuid(),
       name: 'Roman',
-      photoURL: 'https://randomuser.me/api/portraits/men/20.jpg'
-    })
+      photoURL: 'https://randomuser.me/api/portraits/men/20.jpg',
+    }),
   })
 }
 
@@ -52,20 +53,39 @@ export function deleteEventInFirestore(eventId) {
 
 export function cancelEventToggle(event) {
   return db.collection('events').doc(event.id).update({
-    isCancelled: !event.isCancelled
+    isCancelled: !event.isCancelled,
   })
 }
 
+// User routes
 export function setUserProfileData(user) {
   return db.collection('users').doc(user.uid).set({
     displayName: user.displayName,
     email: user.email,
     photoURL: user.photoURL || null,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
   })
 }
 
 export function updateUserPassword(password) {
   const user = firebase.auth().currentUser
   return user.updatePassword(password.newPassword1)
+}
+
+export function getUserProfile(userId) {
+  return db.collection('users').doc(userId)
+}
+
+export async function updateUserProfile(profile) {
+  const user = await firebase.auth().currentUser
+  try {
+    if (user.displayName !== profile.displayName) {
+      await user.updateProfile({
+        displayName: profile.displayName,
+      })
+    }
+    return await db.collection('users').doc(user.uid).update(profile)
+  } catch (e) {
+    throw e
+  }
 }
