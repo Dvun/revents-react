@@ -20,11 +20,11 @@ const SignedInMenu = () => {
 
   return (
     <Menu.Item position="right">
-      <Image avatar spaced="right" src={currentUserProfile.photoURL || '/assets/user.png'}/>
-      <Dropdown pointing="top left" text={currentUserProfile.displayName}>
+      <Image avatar spaced="right" src={currentUserProfile?.photoURL || '/assets/user.png'}/>
+      <Dropdown pointing="top left" text={currentUserProfile?.displayName}>
         <DropdownMenu>
           <DropdownItem as={Link} to="/createEvent" text="Create Event" icon="plus"/>
-          <DropdownItem as={Link} to={`/profile/${currentUserProfile.id}`} text="My Profile" icon="user"/>
+          <DropdownItem as={Link} to={`/profile/${currentUserProfile?.id}`} text="My Profile" icon="user"/>
           <DropdownItem as={Link} to="/account" text="My Account" icon="settings"/>
           <DropdownItem onClick={handleSignOut} text="Sign out" icon="power"/>
         </DropdownMenu>

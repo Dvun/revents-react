@@ -12,3 +12,7 @@ export const listenToSelectedUserProfile = (profile) => {
 export const listenToUserPhotos = (photos) => {
     return ({type: consts.LISTEN_TO_USER_PHOTOS, payload: photos})
 }
+
+export function listenToUserEvents(events) {
+    return ({type: consts.LISTEN_TO_USER_EVENTS, payload: events})
+}
