@@ -3,6 +3,7 @@ import {FETCH_EVENTS} from '../constants/eventConstats'
 
 const initialState = {
   events: [],
+  comments: []
 }
 
 export const eventReducers = (state = initialState, {type, payload}) => {
@@ -30,6 +31,18 @@ export const eventReducers = (state = initialState, {type, payload}) => {
       return {
         ...state,
         events: [...state.events.filter(event => event.id !== payload.id), payload],
+      }
+
+    case consts.LISTEN_TO_EVENT_CHAT:
+      return {
+        ...state,
+        comments: payload
+      }
+
+    case consts.CLEAR_COMMENTS:
+      return {
+        ...state,
+        comments: []
       }
 
     default:

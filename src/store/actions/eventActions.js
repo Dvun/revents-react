@@ -29,3 +29,7 @@ export const updateEvent = (updatedEvent) => (dispatch) => {
 export const deleteEvent = (eventId) => (dispatch) => {
   dispatch({type: consts.DELETE_EVENT, payload: eventId})
 }
+
+export function listenToEventChat(comments) {
+  return ({type: consts.LISTEN_TO_EVENT_CHAT, payload: comments})
+}

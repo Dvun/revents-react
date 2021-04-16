@@ -32,3 +32,7 @@ export const passwordSchema = yup.object().shape({
 export const userUpdateSchema = yup.object().shape({
   displayName: yup.string().required('Display name required')
 })
+
+export const chatSchema = yup.object().shape({
+  comment: yup.string().required()
+})
