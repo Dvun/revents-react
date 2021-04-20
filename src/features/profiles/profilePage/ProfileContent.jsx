@@ -1,17 +1,19 @@
-import React from 'react'
-import {Tab, TabPane} from 'semantic-ui-react'
+import React, {useState} from 'react'
+import {Tab} from 'semantic-ui-react'
 import AboutTab from './AboutTab'
 import {PhotosTab} from './PhotosTab'
 import EventsTab from './EventsTab'
+import FollowingTab from './FollowingTab'
 
 const ProfileContent = ({profile, isCurrentUser}) => {
+  const [activeTab, setActiveTab] = useState(0)
 
   const panes = [
     {menuItem: 'About', render: () => <AboutTab profile={profile} isCurrentUser={isCurrentUser}/>},
     {menuItem: 'Photos', render: () => <PhotosTab profile={profile} isCurrentUser={isCurrentUser}/>},
     {menuItem: 'Events', render: () => <EventsTab profile={profile}/>},
-    {menuItem: 'Followers', render: () => <TabPane>Followers</TabPane>},
-    {menuItem: 'Following', render: () => <TabPane>Following</TabPane>},
+    {menuItem: 'Followers', render: () => <FollowingTab profile={profile} key={profile.id} activeTab={activeTab}/>},
+    {menuItem: 'Following', render: () => <FollowingTab profile={profile} key={profile.id} activeTab={activeTab}/>},
   ]
 
   return (
@@ -19,6 +21,7 @@ const ProfileContent = ({profile, isCurrentUser}) => {
       menu={{fluid: true, vertical: true}}
       menuPosition='right'
       panes={panes}
+      onTabChange={(e, data) => setActiveTab(data.activeIndex)}
     />
   )
 }

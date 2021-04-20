@@ -16,3 +16,19 @@ export const listenToUserPhotos = (photos) => {
 export function listenToUserEvents(events) {
     return ({type: consts.LISTEN_TO_USER_EVENTS, payload: events})
 }
+
+export function listenToFollowers(followers) {
+    return ({type: consts.LISTEN_TO_FOLLOWERS, payload: followers})
+}
+
+export function listenToFollowings(followings) {
+    return ({type: consts.LISTEN_TO_FOLLOWERS, payload: followings})
+}
+
+export function setFollowUser() {
+    return ({type: consts.SET_FOLLOW_USER})
+}
+
+export function setUnfollowUser() {
+    return ({type: consts.SET_UNFOLLOW_USER})
+}

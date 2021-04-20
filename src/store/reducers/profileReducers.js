@@ -4,7 +4,11 @@ const initialState = {
   currentUserProfile: null,
   selectedUserProfile: null,
   photos: [],
-  profileEvents: []
+  profileEvents: [],
+  followers: [],
+  followings: [],
+  followingUser: false,
+
 }
 
 export const profileReducers = (state = initialState, {type, payload}) => {
@@ -31,6 +35,37 @@ export const profileReducers = (state = initialState, {type, payload}) => {
       return {
         ...state,
         profileEvents: payload
+      }
+
+    case consts.LISTEN_TO_FOLLOWERS:
+      return {
+        ...state,
+        followers: payload
+      }
+
+    case consts.LISTEN_TO_FOLLOWINGS:
+      return {
+        ...state,
+        followings: payload
+      }
+
+    case consts.SET_FOLLOW_USER:
+      return {
+        ...state,
+        followingUser: true
+      }
+
+    case consts.SET_UNFOLLOW_USER:
+      return {
+        ...state,
+        followingUser: false
+      }
+
+    case consts.CLEAR_FOLLOWINGS:
+      return {
+        ...state,
+        followers: [],
+        followings: []
       }
 
     default:
